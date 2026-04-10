@@ -1,0 +1,11 @@
+[tools]
+cmake = "latest"
+
+[tasks.build]
+description = "Configure and build the OpenMP project"
+run = ["cmake -S . -B build", "cmake --build build"]
+
+[tasks.run]
+description = "Build and run generator with default size"
+depends = ["build"]
+run = "./build/openmp_random_vector 1000000"
