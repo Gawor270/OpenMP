@@ -1,0 +1,30 @@
+Size: 5000000
+Threads: 1
+Schedule: dynamic
+Chunk size: 1
+Time: 1.033
+---
+Size: 20000000
+Threads: 1
+Schedule: dynamic
+Chunk size: 1
+Time: 4.341
+---
+Size: 50000000
+Threads: 1
+Schedule: dynamic
+Chunk size: 1
+Time: 14.306
+---
+Size: 100000000
+Threads: 1
+Schedule: dynamic
+Chunk size: 1
+Time: 25.616
+---
+Size: 200000000
+Threads: 1
+Schedule: dynamic
+Chunk size: 1
+Time: 50.198
+---
