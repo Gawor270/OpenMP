@@ -1,0 +1,30 @@
+Size: 5000000
+Threads: 8
+Schedule: static
+Chunk size: 1000
+Time: 0.183
+---
+Size: 20000000
+Threads: 8
+Schedule: static
+Chunk size: 1000
+Time: 0.597
+---
+Size: 50000000
+Threads: 8
+Schedule: static
+Chunk size: 1000
+Time: 1.539
+---
+Size: 100000000
+Threads: 8
+Schedule: static
+Chunk size: 1000
+Time: 3.354
+---
+Size: 200000000
+Threads: 8
+Schedule: static
+Chunk size: 1000
+Time: 7.522
+---

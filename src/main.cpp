@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 
   omp_set_schedule(kind, chunk);
 
-  std::ofstream outfile("dynamic_1_t_8.txt", std::ios::app); // <- TUTAJ ZMIEN NAZWE PLIKU
+  std::ofstream outfile("wyniki/static_1000_t_1.txt", std::ios::app); // <- TUTAJ ZMIEN NAZWE PLIKU
   if (!outfile) {
     std::cerr << "Error: could not open file\n";
     return 1;
