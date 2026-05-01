@@ -8,4 +8,4 @@ run = ["cmake -S . -B build", "cmake --build build"]
 [tasks.run]
 description = "Build and run generator with default size"
 depends = ["build"]
-run = "./build/openmp_random_vector 1000000"
+run = "./build/openmp_bucket_sort 1000000"

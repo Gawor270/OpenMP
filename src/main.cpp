@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
                                       : kDefaultSeed;
 
   const GeneratedData generated = generate_values(vector_size, base_seed);
-  BucketSortTimings timings = bucketSort(generated.values);
+  BucketSortTimings timings = bucketSort(const_cast<std::vector<double>&>(generated.values));
 
   std::cout << "Generated " << generated.values.size() << " random values in [0, 1).\n";
   std::cout << "Threads used (max): " << omp_get_max_threads() << "\n";
