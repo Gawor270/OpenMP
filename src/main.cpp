@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     std::sort(copy_for_verification.begin(), copy_for_verification.end());
     
     if (generated.values != copy_for_verification) {
-      std::cerr << "Error: Values are not sorted correctly or data was corrupted.\n";
+      std::cout << "[FAIL] Array is not sorted correctly!\n startup params: vector_size=" << vector_size << ", base_seed=" << base_seed << "\n";
       return 1;
     }
     std::cout << "[PASS] Array is perfectly sorted!\n";

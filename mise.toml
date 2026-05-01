@@ -33,8 +33,5 @@ run = [
 
 [tasks.test]
 description = "Run all bucket sort test suites sequentially"
-run = [
-    "mise run test_concurrency",
-    "mise run test_edges"
-]
+depends = ["test_concurrency", "test_edges"]
 
