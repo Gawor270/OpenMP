@@ -13,6 +13,8 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
     }
     std::vector<std::vector<double>> buckets(numBuckets);
 
+    std::vector<std::size_t> offsets(numBuckets, 0);
+
     double t_b_start = 0.0;
     double t_b_end = 0.0;
     double t_c_start = 0.0;
@@ -63,6 +65,25 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
         #pragma omp single
         {
             t_c_end = omp_get_wtime();
+            t_d_start = t_c_end;
+            offsets[0] = 0;
+            for (int i = 1; i < numBuckets; ++i) {
+                offsets[i] = offsets[i - 1] + buckets[i - 1].size();
+            }
+        }
+
+        #pragma omp for schedule(static)
+        for (int i = 0; i < numBuckets; ++i) {
+            std::size_t offset = offsets[i];
+            for (std::size_t j = 0; j < buckets[i].size(); ++j) {
+                values[offset + j] = buckets[i][j];
+            }
+        }
+
+        #pragma omp barrier
+        #pragma omp single
+        {
+            t_d_end = omp_get_wtime();
         }
     }
 
@@ -72,6 +93,7 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
 
     timings.distribute_seconds = t_b_end - t_b_start;
     timings.sort_seconds = t_c_end - t_c_start;
-
+    timings.rewrite_seconds = t_d_end - t_d_start;
+    timings.total_seconds = t_d_end - t_total_start;
 	return timings;
 }
