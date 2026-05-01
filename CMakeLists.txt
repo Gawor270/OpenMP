@@ -11,6 +11,8 @@ find_package(OpenMP REQUIRED)
 add_executable(openmp_bucket_sort
   src/main.cpp
   src/bucketSort.cpp
+  src/bucketSortAlg1.cpp
+  src/bucketSortAlg2.cpp
   src/generator.cpp
 )
 target_link_libraries(openmp_bucket_sort PRIVATE OpenMP::OpenMP_CXX)

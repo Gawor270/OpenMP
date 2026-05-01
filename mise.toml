@@ -18,7 +18,12 @@ run = [
     "OMP_NUM_THREADS=2 ./build/openmp_bucket_sort 1000000 1 --test",
     "OMP_NUM_THREADS=3 ./build/openmp_bucket_sort 1000000 1 --test",
     "OMP_NUM_THREADS=4 ./build/openmp_bucket_sort 1000000 1 --test",
-    "OMP_NUM_THREADS=8 ./build/openmp_bucket_sort 1000000 1 --test"
+    "OMP_NUM_THREADS=8 ./build/openmp_bucket_sort 1000000 1 --test",
+    "OMP_NUM_THREADS=1 ./build/openmp_bucket_sort 1000000 1 --alg 2 --test",
+    "OMP_NUM_THREADS=2 ./build/openmp_bucket_sort 1000000 1 --alg 2 --test",
+    "OMP_NUM_THREADS=3 ./build/openmp_bucket_sort 1000000 1 --alg 2 --test",
+    "OMP_NUM_THREADS=4 ./build/openmp_bucket_sort 1000000 1 --alg 2 --test",
+    "OMP_NUM_THREADS=8 ./build/openmp_bucket_sort 1000000 1 --alg 2 --test"
 ]
 
 [tasks.test_edges]
@@ -28,13 +33,17 @@ run = [
     "./build/openmp_bucket_sort 0 1 --test",
     "./build/openmp_bucket_sort 1 1 --test",
     "./build/openmp_bucket_sort 17 1 --test",
-    "./build/openmp_bucket_sort 5000000 1 --test"
+    "./build/openmp_bucket_sort 5000000 1 --test",
+    "./build/openmp_bucket_sort 0 1 --alg 2 --test",
+    "./build/openmp_bucket_sort 1 1 --alg 2 --test",
+    "./build/openmp_bucket_sort 17 1 --alg 2 --test",
+    "./build/openmp_bucket_sort 5000000 1 --alg 2 --test"
 ]
 
 [tasks.test_generator]
 description = "Run generator uniformity checks"
 depends = ["build"]
-run = ["ctest --test-dir build -R generator_uniformity --output-on-failure"]
+run = ["ctest --test-dir build -R generator_uniformity"]
 
 [tasks.test]
 description = "Run all bucket sort test suites sequentially"

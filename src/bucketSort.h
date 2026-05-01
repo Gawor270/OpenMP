@@ -11,6 +11,5 @@ struct BucketSortTimings {
 };
 
 BucketSortTimings bucketSort(std::vector<double>& values, int algorithm);
-BucketSortTimings bucketSort(std::vector<double>& values);
 
 #endif
