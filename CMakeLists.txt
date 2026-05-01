@@ -8,7 +8,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(OpenMP REQUIRED)
 
-add_executable(openmp_random_vector src/main.cpp)
+add_executable(openmp_random_vector
+  src/main.cpp
+  src/bucketSort.cpp
+  src/generator.cpp
+)
 target_link_libraries(openmp_random_vector PRIVATE OpenMP::OpenMP_CXX)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
