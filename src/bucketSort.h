@@ -4,10 +4,10 @@
 #include <vector>
 
 struct BucketSortTimings {
-	double distribute_seconds = 0.0;
-	double sort_seconds = 0.0;
-	double rewrite_seconds = 0.0;
-	double total_seconds = 0.0;
+  double distribute_seconds = 0.0;
+  double sort_seconds = 0.0;
+  double rewrite_seconds = 0.0;
+  double total_seconds = 0.0;
 };
 
 BucketSortTimings bucketSort(std::vector<double>& values);
