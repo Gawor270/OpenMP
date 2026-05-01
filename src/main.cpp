@@ -1,10 +1,21 @@
 #include <cstdint>
 #include <iostream>
-#include <random>
 #include <string>
 #include <vector>
 
 #include <omp.h>
+
+std::uint64_t splitmix64(std::uint64_t x) {
+  x += 0x9e3779b97f4a7c15ull;
+  x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ull;
+  x = (x ^ (x >> 27)) * 0x94d049bb133111ebull;
+  return x ^ (x >> 31);
+}
+
+double to_unit_interval(std::uint64_t value) {
+  constexpr double kInvPow53 = 1.0 / 9007199254740992.0;
+  return static_cast<double>(value >> 11) * kInvPow53;
+}
 
 int main(int argc, char** argv) {
   constexpr std::uint64_t kDefaultSeed = 123456789ull;
@@ -23,13 +34,10 @@ int main(int argc, char** argv) {
 
 #pragma omp parallel
   {
-    const int thread_id = omp_get_thread_num();
-    std::mt19937_64 engine(base_seed + static_cast<std::uint64_t>(thread_id));
-    std::uniform_real_distribution<double> distribution(0.0, 1.0);
-
 #pragma omp for schedule(static)
     for (long long i = 0; i < static_cast<long long>(values.size()); ++i) {
-      values[static_cast<std::size_t>(i)] = distribution(engine);
+      const std::uint64_t sample_seed = base_seed + static_cast<std::uint64_t>(i);
+      values[static_cast<std::size_t>(i)] = to_unit_interval(splitmix64(sample_seed));
     }
   }
 
