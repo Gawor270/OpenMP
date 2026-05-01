@@ -5,14 +5,16 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 #include <omp.h>
 
 int main(int argc, char** argv) {
   constexpr std::uint64_t kDefaultSeed = 123456789ull;
+  std::vector<double> copy_for_verification;
 
-  if (argc < 2 || argc > 3) {
-    std::cerr << "Usage: " << argv[0] << " <vector_size> [base_seed]\n";
+  if (argc < 2 || argc > 4) {
+    std::cerr << "Usage: " << argv[0] << " <vector_size> [base_seed] [--test]\n";
     return 1;
   }
 
@@ -20,9 +22,25 @@ int main(int argc, char** argv) {
   const std::uint64_t base_seed = (argc == 3)
                                       ? static_cast<std::uint64_t>(std::stoull(argv[2]))
                                       : kDefaultSeed;
+  const bool test_mode = (argc == 4) && (std::string(argv[3]) == "--test");
 
   const GeneratedData generated = generate_values(vector_size, base_seed);
+
+  if (test_mode) {
+      copy_for_verification = generated.values;
+  }
+
   BucketSortTimings timings = bucketSort(const_cast<std::vector<double>&>(generated.values));
+
+  if (test_mode) {
+    std::sort(copy_for_verification.begin(), copy_for_verification.end());
+    
+    if (generated.values != copy_for_verification) {
+      std::cerr << "Error: Values are not sorted correctly or data was corrupted.\n";
+      return 1;
+    }
+    std::cout << "[PASS] Array is perfectly sorted!\n";
+  }
 
   std::cout << "Generated " << generated.values.size() << " random values in [0, 1).\n";
   std::cout << "Threads used (max): " << omp_get_max_threads() << "\n";

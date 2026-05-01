@@ -6,6 +6,35 @@ description = "Configure and build the OpenMP project"
 run = ["cmake -S . -B build", "cmake --build build"]
 
 [tasks.run]
-description = "Build and run generator with default size"
+description = "Build and run bucket sort with default size"
 depends = ["build"]
 run = "./build/openmp_bucket_sort 1000000"
+
+[tasks.test_concurrency]
+description = "Test bucket sort against multiple thread counts to catch race conditions"
+depends = ["build"]
+run = [
+    "OMP_NUM_THREADS=1 ./build/openmp_bucket_sort 1000000 1 --test",
+    "OMP_NUM_THREADS=2 ./build/openmp_bucket_sort 1000000 1 --test",
+    "OMP_NUM_THREADS=3 ./build/openmp_bucket_sort 1000000 1 --test",
+    "OMP_NUM_THREADS=4 ./build/openmp_bucket_sort 1000000 1 --test",
+    "OMP_NUM_THREADS=8 ./build/openmp_bucket_sort 1000000 1 --test"
+]
+
+[tasks.test_edges]
+description = "Test algorithmic edge cases (empty, single, tiny, huge)"
+depends = ["build"]
+run = [
+    "./build/openmp_bucket_sort 0 1 --test",
+    "./build/openmp_bucket_sort 1 1 --test",
+    "./build/openmp_bucket_sort 17 1 --test",
+    "./build/openmp_bucket_sort 5000000 1 --test"
+]
+
+[tasks.test]
+description = "Run all bucket sort test suites sequentially"
+run = [
+    "mise run test_concurrency",
+    "mise run test_edges"
+]
+
