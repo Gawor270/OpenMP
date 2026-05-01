@@ -1,400 +1,400 @@
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 1
-Time: 0.130268923
+Time: 0.010161347
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 2
-Time: 0.130367031
+Time: 0.010230179
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 3
-Time: 0.132420654
+Time: 0.010179777
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 4
-Time: 0.130507343
+Time: 0.010052394
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 5
-Time: 0.134199881
+Time: 0.010814735
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 6
-Time: 0.130384831
+Time: 0.010008368
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 7
-Time: 0.130268615
+Time: 0.010307122
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 8
-Time: 0.130309145
+Time: 0.010389130
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 9
-Time: 0.130358127
+Time: 0.010356238
 Checksum: 512.526421435
 ---
 Size: 5000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 10
-Time: 0.130422393
+Time: 0.010520054
 Checksum: 512.526421435
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 1
-Time: 0.526371687
+Time: 0.042514015
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 2
-Time: 0.522119523
+Time: 0.041771070
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 3
-Time: 0.521506470
+Time: 0.041161837
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 4
-Time: 0.525790321
+Time: 0.040274262
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 5
-Time: 0.521281761
+Time: 0.040363574
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 6
-Time: 0.523206568
+Time: 0.041919248
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 7
-Time: 0.522742579
+Time: 0.040081409
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 8
-Time: 0.526740495
+Time: 0.041244233
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 9
-Time: 0.521713506
+Time: 0.040390460
 Checksum: 524.038221465
 ---
 Size: 20000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 10
-Time: 0.523117379
+Time: 0.040660150
 Checksum: 524.038221465
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 1
-Time: 1.309724580
+Time: 0.101002434
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 2
-Time: 1.310031548
+Time: 0.099365587
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 3
-Time: 1.307927918
+Time: 0.099737324
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 4
-Time: 1.309802591
+Time: 0.102424292
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 5
-Time: 1.311520443
+Time: 0.099883383
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 6
-Time: 1.311946584
+Time: 0.099175456
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 7
-Time: 1.308080080
+Time: 0.101890497
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 8
-Time: 1.311838193
+Time: 0.103219273
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 9
-Time: 1.307626856
+Time: 0.099541421
 Checksum: 493.554596068
 ---
 Size: 50000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 10
-Time: 1.311041123
+Time: 0.113469698
 Checksum: 493.554596068
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 1
-Time: 2.618200077
+Time: 0.200173084
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 2
-Time: 2.622480866
+Time: 0.198499644
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 3
-Time: 2.621142623
+Time: 0.198138780
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 4
-Time: 2.618023565
+Time: 0.201516293
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 5
-Time: 2.619014584
+Time: 0.224451952
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 6
-Time: 2.620881738
+Time: 0.202952054
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 7
-Time: 2.619487154
+Time: 0.202298163
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 8
-Time: 2.632231490
+Time: 0.198873847
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 9
-Time: 2.633594201
+Time: 0.197819624
 Checksum: 502.706002532
 ---
 Size: 100000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 10
-Time: 2.639702807
+Time: 0.199344851
 Checksum: 502.706002532
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 1
-Time: 5.273142814
+Time: 0.396842358
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 2
-Time: 5.260563033
+Time: 0.401452754
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 3
-Time: 5.232599586
+Time: 0.397642741
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 4
-Time: 5.235253923
+Time: 0.399705882
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 5
-Time: 5.232038342
+Time: 0.396615759
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 6
-Time: 5.230471350
+Time: 0.397246349
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 7
-Time: 5.234413159
+Time: 0.399057228
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 8
-Time: 5.233101472
+Time: 0.397278610
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 9
-Time: 5.239740939
+Time: 0.403338886
 Checksum: 509.162160335
 ---
 Size: 200000000
-Threads: 8
+Threads: 1
 Schedule: dynamic
-Chunk size: 1
+Chunk size: 1000
 Run: 10
-Time: 5.238963436
+Time: 0.396983023
 Checksum: 509.162160335
 ---
