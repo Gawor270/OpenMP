@@ -22,7 +22,7 @@ GeneratedData generate_values(std::size_t size, std::uint64_t base_seed) {
   std::vector<double> values(size);
   const double start_seconds = omp_get_wtime();
 
-#pragma omp parallel for schedule(static)
+#pragma omp parallel for schedule(auto)
   for (long long i = 0; i < static_cast<long long>(values.size()); ++i) {
     const std::uint64_t sample_seed = base_seed + static_cast<std::uint64_t>(i);
     values[static_cast<std::size_t>(i)] = to_unit_interval(splitmix64(sample_seed));

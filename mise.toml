@@ -31,7 +31,12 @@ run = [
     "./build/openmp_bucket_sort 5000000 1 --test"
 ]
 
+[tasks.test_generator]
+description = "Run generator uniformity checks"
+depends = ["build"]
+run = ["ctest --test-dir build -R generator_uniformity --output-on-failure"]
+
 [tasks.test]
 description = "Run all bucket sort test suites sequentially"
-depends = ["test_concurrency", "test_edges"]
+depends = ["test_concurrency", "test_edges", "test_generator"]
 
