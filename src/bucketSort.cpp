@@ -29,8 +29,10 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
         }
 
         int tid = omp_get_thread_num();
-        int start_index = tid * values.size() / numThreads;
-        int end_index = (tid + 1) * values.size() / numThreads;
+        std::size_t start_index = static_cast<std::size_t>(tid) * values.size()
+                      / static_cast<std::size_t>(numThreads);
+        std::size_t end_index = static_cast<std::size_t>(tid + 1) * values.size()
+                    / static_cast<std::size_t>(numThreads);
 
         #pragma omp barrier
         #pragma omp single
@@ -38,7 +40,7 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
             t_b_start = omp_get_wtime();
         }
 
-        for (int i = start_index; i < end_index; ++i) {
+        for (std::size_t i = start_index; i < end_index; ++i) {
             int bucket_index = std::min(static_cast<int>(values[i] * numBuckets), numBuckets - 1);
             omp_set_lock(&bucket_locks[bucket_index]);
             buckets[bucket_index].push_back(values[i]);
@@ -49,6 +51,18 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
         #pragma omp single
         {
             t_b_end = omp_get_wtime();
+            t_c_start = t_b_end;
+        }
+
+        #pragma omp for schedule(static)
+        for (int i = 0; i < numBuckets; ++i) {
+            std::sort(buckets[i].begin(), buckets[i].end());
+        }
+
+        #pragma omp barrier
+        #pragma omp single
+        {
+            t_c_end = omp_get_wtime();
         }
     }
 
@@ -57,5 +71,7 @@ BucketSortTimings bucketSort(std::vector<double>& values) {
     }
 
     timings.distribute_seconds = t_b_end - t_b_start;
+    timings.sort_seconds = t_c_end - t_c_start;
+
 	return timings;
 }
