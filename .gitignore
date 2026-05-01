@@ -8,3 +8,7 @@ __pycache__/
 # Virtual environments
 .venv/
 .vscode/
+
+# SLURM outputs and experiment results
+results/
+slurm-*.out
