@@ -1,0 +1,9 @@
+# Build output
+build/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
