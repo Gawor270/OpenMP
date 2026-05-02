@@ -3,6 +3,8 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=8
 #SBATCH --time=00:30:00
+#SBATCH --partition=plgrid-now
+#SBATCH --account=plgmpr26-cpu
 #SBATCH --output=slurm-%j.out
 set -euo pipefail
 
@@ -10,14 +12,16 @@ VECTOR_SIZE=${1:-1000000}
 BASE_SEED=${2:-123456789}
 ALGORITHM=${3:-1}
 CSV_DIR=${4:-results}
+ARRAY_ID=${SLURM_ARRAY_TASK_ID:-1}
+SEED=$((BASE_SEED + ARRAY_ID - 1))
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-${OMP_NUM_THREADS:-1}}
 
 mkdir -p "$CSV_DIR"
 
-CSV_PATH="$CSV_DIR/run_${SLURM_JOB_ID:-local}.csv"
+CSV_PATH="$CSV_DIR/run_${SLURM_JOB_ID:-local}_${ARRAY_ID}.csv"
 
 cmake -S . -B build
 cmake --build build
 
-./build/openmp_bucket_sort "$VECTOR_SIZE" "$BASE_SEED" --alg "$ALGORITHM" --csv "$CSV_PATH"
+./build/openmp_bucket_sort "$VECTOR_SIZE" "$SEED" --alg "$ALGORITHM" --csv "$CSV_PATH"
