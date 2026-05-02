@@ -20,6 +20,11 @@ fi
 ROOT_DIR="${SLURM_SUBMIT_DIR:-$PWD}"
 cd "${ROOT_DIR}"
 
+if ! command -v cmake >/dev/null 2>&1; then
+  module purge
+  module load cmake gcc
+fi
+
 cmake -S . -B build
 cmake --build build
 
