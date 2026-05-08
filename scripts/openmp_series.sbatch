@@ -35,12 +35,16 @@ BASE_SIZE=1000000
 
 mkdir -p results_strong_alg1 results_strong_alg2 results_weak_alg1 results_weak_alg2
 
+BUCKET_MULT=64   # optimised from sweep: best elbow of gain curve
+
 # Strong scaling
 for alg in 1 2; do
   for t in "${THREADS_LIST[@]}"; do
     export OMP_NUM_THREADS="$t"
     for r in $(seq 1 "$REPEATS"); do
-      ./build/openmp_bucket_sort "$BASE_SIZE" "$BASE_SEED" --alg "$alg" --csv "results_strong_alg${alg}/run_${t}_${r}.csv"
+      ./build/openmp_bucket_sort "$BASE_SIZE" "$BASE_SEED" \
+        --alg "$alg" --bucket-mult "$BUCKET_MULT" \
+        --csv "results_strong_alg${alg}/run_${t}_${r}.csv"
     done
   done
 done
@@ -51,7 +55,9 @@ for alg in 1 2; do
     export OMP_NUM_THREADS="$t"
     size=$((BASE_SIZE * t))
     for r in $(seq 1 "$REPEATS"); do
-      ./build/openmp_bucket_sort "$size" "$BASE_SEED" --alg "$alg" --csv "results_weak_alg${alg}/run_${t}_${r}.csv"
+      ./build/openmp_bucket_sort "$size" "$BASE_SEED" \
+        --alg "$alg" --bucket-mult "$BUCKET_MULT" \
+        --csv "results_weak_alg${alg}/run_${t}_${r}.csv"
     done
   done
 done

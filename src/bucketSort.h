@@ -10,6 +10,6 @@ struct BucketSortTimings {
 	double total_seconds = 0.0;
 };
 
-BucketSortTimings bucketSort(std::vector<double>& values, int algorithm, int bucket_mult = 16);
+BucketSortTimings bucketSort(std::vector<double>& values, int algorithm, int bucket_mult = 64);
 
 #endif

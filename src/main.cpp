@@ -22,7 +22,7 @@ struct RunOptions {
   std::uint64_t base_seed = 123456789ull;
   bool test_mode = false;
   int algorithm = 1;
-  int bucket_mult = 16;
+  int bucket_mult = 64;
   std::string csv_path;
 };
 

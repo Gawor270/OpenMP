@@ -255,4 +255,72 @@ fig.suptitle("Udział faz w łącznym czasie (1 wątek)", fontsize=12, fontweigh
 fig.tight_layout()
 savefig(fig, "phase_pie_1thread.png")
 
+# ── (11) Bucket multiplier sweep ─────────────────────────────────────────────
+print("Plot 11 – bucket multiplier sweep …")
+sweep_csvs = glob.glob(os.path.join(ROOT, "results_bucket_sweep", "*.csv"))
+if sweep_csvs:
+    rows = []
+    for path in sweep_csvs:
+        df = pd.read_csv(path, quotechar='"')
+        df.columns = df.columns.str.strip()
+        rows.append(df)
+    sweep = pd.concat(rows, ignore_index=True)
+    sweep_avg = (
+        sweep.groupby(["bucket_multiplier", "threads"])[
+            ["distribute_seconds", "sort_seconds", "total_seconds"]
+        ]
+        .mean()
+        .reset_index()
+    )
+
+    mults = sorted(sweep_avg["bucket_multiplier"].unique())
+    highlight_threads = [1, 8, 16, 32, 48]
+    cmap = plt.cm.viridis
+    colors = {t: cmap(i / (len(highlight_threads) - 1))
+              for i, t in enumerate(highlight_threads)}
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+    # left: total time vs multiplier
+    ax = axes[0]
+    for t in highlight_threads:
+        sub = sweep_avg[sweep_avg["threads"] == t].sort_values("bucket_multiplier")
+        ax.plot(sub["bucket_multiplier"], sub["total_seconds"],
+                marker="o", markersize=5, linewidth=1.8,
+                label=f"T={t}", color=colors[t])
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(mults)
+    ax.set_xticklabels([str(m) for m in mults], fontsize=8)
+    ax.grid(True, linestyle="--", alpha=0.5)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.set_xlabel("Mnożnik liczby kubełków", fontsize=10)
+    ax.set_ylabel("Czas łączny [s]", fontsize=10)
+    ax.set_title("Czas łączny vs mnożnik kubełków", fontsize=11, fontweight="bold")
+    ax.legend(fontsize=9)
+
+    # right: distribute time vs multiplier (log-log)
+    ax = axes[1]
+    for t in highlight_threads:
+        sub = sweep_avg[sweep_avg["threads"] == t].sort_values("bucket_multiplier")
+        ax.plot(sub["bucket_multiplier"], sub["distribute_seconds"],
+                marker="o", markersize=5, linewidth=1.8,
+                label=f"T={t}", color=colors[t])
+    ax.set_xscale("log", base=2)
+    ax.set_yscale("log")
+    ax.set_xticks(mults)
+    ax.set_xticklabels([str(m) for m in mults], fontsize=8)
+    ax.grid(True, linestyle="--", alpha=0.5)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.set_xlabel("Mnożnik liczby kubełków", fontsize=10)
+    ax.set_ylabel("Czas rozdzielania [s] (skala log)", fontsize=10)
+    ax.set_title("Faza rozdzielania vs mnożnik kubełków", fontsize=11, fontweight="bold")
+    ax.legend(fontsize=9)
+
+    fig.suptitle("Wpływ mnożnika liczby kubełków na wydajność Algorytmu 2",
+                 fontsize=12, fontweight="bold")
+    fig.tight_layout()
+    savefig(fig, "bucket_sweep.png")
+else:
+    print("  (no sweep data – skipping)")
+
 print("\nDone — all plots saved to", OUT)
