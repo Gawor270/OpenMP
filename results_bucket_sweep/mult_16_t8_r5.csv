@@ -1,0 +1,2 @@
+timestamp,slurm_job_id,slurm_nodelist,slurm_cpus_per_task,algorithm,bucket_multiplier,vector_size,base_seed,threads,generate_seconds,distribute_seconds,sort_seconds,rewrite_seconds,total_seconds,test_mode
+"2026-05-08 11:14:12","20059457","ac0688","48",2,16,1000000,123456789,8,0.000388570,0.065033303,0.006476760,0.000086105,0.071599617,0
