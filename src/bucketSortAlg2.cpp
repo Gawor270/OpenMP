@@ -6,15 +6,19 @@
 
 #include <omp.h>
 
-BucketSortTimings bucketSortAlg2(std::vector<double>& values) {
+BucketSortTimings bucketSortAlg2(std::vector<double>& values, int bucket_mult) {
   BucketSortTimings timings;
   const int numThreads = omp_get_max_threads();
-  const int numBuckets = numThreads * 4;
+  const int numBuckets = numThreads * bucket_mult;
   std::vector<omp_lock_t> bucket_locks(numBuckets);
   for (int i = 0; i < numBuckets; ++i) {
     omp_init_lock(&bucket_locks[i]);
   }
   std::vector<std::vector<double>> buckets(numBuckets);
+  const std::size_t expected = values.size() / static_cast<std::size_t>(numBuckets);
+  for (int i = 0; i < numBuckets; ++i) {
+    buckets[i].reserve(expected * 2 + 1);
+  }
   std::vector<std::size_t> offsets(numBuckets, 0);
 
   double t_b_start = 0.0;
@@ -24,6 +28,7 @@ BucketSortTimings bucketSortAlg2(std::vector<double>& values) {
   double t_d_start = 0.0;
   double t_d_end = 0.0;
   double t_total_start = 0.0;
+  double t_total_end = 0.0;
 
 #pragma omp parallel
   {
@@ -82,7 +87,10 @@ BucketSortTimings bucketSortAlg2(std::vector<double>& values) {
 
 #pragma omp barrier
 #pragma omp single
-    t_d_end = omp_get_wtime();
+    {
+      t_d_end = omp_get_wtime();
+      t_total_end = t_d_end;
+    }
   }
 
   for (int i = 0; i < numBuckets; ++i) {
@@ -92,6 +100,6 @@ BucketSortTimings bucketSortAlg2(std::vector<double>& values) {
   timings.distribute_seconds = t_b_end - t_b_start;
   timings.sort_seconds = t_c_end - t_c_start;
   timings.rewrite_seconds = t_d_end - t_d_start;
-  timings.total_seconds = t_d_end - t_total_start;
+  timings.total_seconds = t_total_end - t_total_start;
   return timings;
 }

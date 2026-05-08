@@ -5,6 +5,6 @@
 
 #include <vector>
 
-BucketSortTimings bucketSortAlg2(std::vector<double>& values);
+BucketSortTimings bucketSortAlg2(std::vector<double>& values, int bucket_mult);
 
 #endif

@@ -22,6 +22,7 @@ struct RunOptions {
   std::uint64_t base_seed = 123456789ull;
   bool test_mode = false;
   int algorithm = 1;
+  int bucket_mult = 16;
   std::string csv_path;
 };
 
@@ -55,6 +56,7 @@ std::string csv_escape(const std::string& value) {
 void write_csv_row(
     const std::string& path,
     int algorithm,
+    int bucket_mult,
     std::size_t vector_size,
     std::uint64_t base_seed,
     int threads,
@@ -75,8 +77,8 @@ void write_csv_row(
 
   if (!exists) {
     out << "timestamp,slurm_job_id,slurm_nodelist,slurm_cpus_per_task,algorithm,"
-           "vector_size,base_seed,threads,generate_seconds,distribute_seconds,"
-           "sort_seconds,rewrite_seconds,total_seconds,test_mode\n";
+           "bucket_multiplier,vector_size,base_seed,threads,generate_seconds,"
+           "distribute_seconds,sort_seconds,rewrite_seconds,total_seconds,test_mode\n";
   }
 
   out << csv_escape(current_timestamp()) << ','
@@ -84,6 +86,7 @@ void write_csv_row(
       << csv_escape(get_env("SLURM_NODELIST")) << ','
       << csv_escape(get_env("SLURM_CPUS_PER_TASK")) << ','
       << algorithm << ','
+      << bucket_mult << ','
       << vector_size << ','
       << base_seed << ','
       << threads << ','
@@ -132,6 +135,18 @@ bool parse_args(int argc, char** argv, RunOptions* options) {
       continue;
     }
 
+    if (arg.rfind("--bucket-mult=", 0) == 0) {
+      options->bucket_mult = std::stoi(arg.substr(14));
+      continue;
+    }
+    if (arg == "--bucket-mult") {
+      if (i + 1 >= argc) {
+        return false;
+      }
+      options->bucket_mult = std::stoi(argv[++i]);
+      continue;
+    }
+
     if (!arg.empty() && arg[0] == '-') {
       return false;
     }
@@ -156,7 +171,7 @@ bool parse_args(int argc, char** argv, RunOptions* options) {
 
 void print_usage(const char* program) {
   std::cerr << "Usage: " << program
-            << " <vector_size> [base_seed] [--alg 1|2] [--csv <path>] [--test]\n";
+            << " <vector_size> [base_seed] [--alg 1|2] [--bucket-mult N] [--csv <path>] [--test]\n";
 }
 
 }  // namespace
@@ -182,7 +197,8 @@ int main(int argc, char** argv) {
   }
 
   BucketSortTimings timings =
-      bucketSort(const_cast<std::vector<double>&>(generated.values), options.algorithm);
+      bucketSort(const_cast<std::vector<double>&>(generated.values),
+                 options.algorithm, options.bucket_mult);
 
   if (options.test_mode) {
     std::sort(copy_for_verification.begin(), copy_for_verification.end());
@@ -200,6 +216,7 @@ int main(int argc, char** argv) {
     write_csv_row(
         options.csv_path,
         options.algorithm,
+        options.bucket_mult,
         options.vector_size,
         options.base_seed,
         omp_get_max_threads(),
@@ -211,6 +228,10 @@ int main(int argc, char** argv) {
   std::cout << "Generated " << generated.values.size() << " random values in [0, 1).\n";
   std::cout << "Threads used (max): " << omp_get_max_threads() << "\n";
   std::cout << "Algorithm: " << options.algorithm << "\n";
+  if (options.algorithm == 2) {
+    std::cout << "Bucket multiplier: " << options.bucket_mult
+              << " (" << omp_get_max_threads() * options.bucket_mult << " buckets)\n";
+  }
   std::cout << "Base seed: " << options.base_seed << "\n";
   std::cout << "Generate time: " << generated.seconds << " s\n";
   std::cout << "Division time: " << timings.distribute_seconds << " s\n";

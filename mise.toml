@@ -49,6 +49,10 @@ run = ["ctest --test-dir build -R generator_uniformity"]
 description = "Run all bucket sort test suites sequentially"
 depends = ["test_concurrency", "test_edges", "test_generator"]
 
+[tasks.sweep]
+description = "Submit bucket-multiplier sweep job to Ares (run from login node)"
+run = "bash scripts/sweep_buckets.sbatch"
+
 [tasks.pack]
 description = "Pack submission zip for algorithm 1 or 2 — usage: mise run pack 1|2"
 run = '''
