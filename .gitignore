@@ -12,3 +12,6 @@ __pycache__/
 # SLURM outputs and experiment results
 results/
 slurm-*.out
+
+# Submission archives
+submission_*.zip

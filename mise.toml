@@ -49,3 +49,45 @@ run = ["ctest --test-dir build -R generator_uniformity"]
 description = "Run all bucket sort test suites sequentially"
 depends = ["test_concurrency", "test_edges", "test_generator"]
 
+[tasks.pack]
+description = "Pack submission zip for algorithm 1 or 2 — usage: mise run pack 1|2"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+VER="${1:-}"
+if [[ "$VER" != "1" && "$VER" != "2" ]]; then
+  echo "Usage: mise run pack <1|2>"
+  exit 1
+fi
+
+OUT="submission_alg${VER}_Gawor.zip"
+STAGE=$(mktemp -d)
+trap 'rm -rf "$STAGE"' EXIT
+
+mkdir -p "$STAGE/src"
+
+# algorithm-specific files
+cp "src/bucketSortAlg${VER}.cpp" "$STAGE/src/"
+cp "src/bucketSortAlg${VER}.h"   "$STAGE/src/"
+
+# shared source
+for f in src/bucketSort.cpp src/bucketSort.h \
+          src/generator.cpp  src/generator.h \
+          src/generator_tests.cpp src/main.cpp; do
+  cp "$f" "$STAGE/src/"
+done
+
+# build system + report
+cp CMakeLists.txt                    "$STAGE/"
+cp sprawozdanie_section_bucket.tex   "$STAGE/"
+
+# plots referenced by the report
+if [[ -d wykresy ]]; then
+  cp -r wykresy "$STAGE/"
+fi
+
+(cd "$STAGE" && zip -r - .) > "$OUT"
+echo "Created: $OUT  ($(du -sh "$OUT" | cut -f1))"
+'''
+
