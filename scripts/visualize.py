@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate all plots for OpenMP bucket sort report."""
 
+import csv
 import os
 import glob
 import pandas as pd
@@ -17,6 +18,19 @@ OUT  = os.path.join(ROOT, "wykresy")
 os.makedirs(OUT, exist_ok=True)
 
 PHASES = ["generate_seconds", "distribute_seconds", "sort_seconds", "rewrite_seconds", "total_seconds"]
+
+_OLD_COLS = [
+    "timestamp","slurm_job_id","slurm_nodelist","slurm_cpus_per_task",
+    "algorithm","vector_size","base_seed","threads",
+    "generate_seconds","distribute_seconds","sort_seconds",
+    "rewrite_seconds","total_seconds","test_mode",
+]
+_NEW_COLS = [
+    "timestamp","slurm_job_id","slurm_nodelist","slurm_cpus_per_task",
+    "algorithm","bucket_multiplier","vector_size","base_seed","threads",
+    "generate_seconds","distribute_seconds","sort_seconds",
+    "rewrite_seconds","total_seconds","test_mode",
+]
 PHASE_LABELS = {
     "generate_seconds":   "Generowanie",
     "distribute_seconds": "Rozdzielanie",
@@ -36,16 +50,38 @@ THREADS = [1, 2, 4, 8, 16, 24, 32, 40, 48]
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def load_dir(directory):
-    """Load all CSV files from a result directory; return averaged DataFrame."""
-    rows = []
+    """Load all CSV files from a result directory; return averaged DataFrame.
+
+    Handles both the old 14-column format (no bucket_multiplier) and the new
+    15-column format.  When both formats are present in the same file (Ares
+    appended new rows to old files), only the new-format rows are kept so that
+    results always reflect the most recent experiment run.
+    """
+    parsed = []
     for path in glob.glob(os.path.join(directory, "run_*.csv")):
-        df = pd.read_csv(path, quotechar='"')
-        df.columns = df.columns.str.strip()
-        rows.append(df)
-    if not rows:
-        raise FileNotFoundError(f"No CSVs in {directory}")
-    df = pd.concat(rows, ignore_index=True)
-    # average over repetitions for each (threads, vector_size) pair
+        with open(path, newline="") as fh:
+            reader = csv.reader(fh)
+            next(reader)  # skip header line (may be old or new format)
+            for fields in reader:
+                n = len(fields)
+                if n == len(_NEW_COLS):
+                    parsed.append(dict(zip(_NEW_COLS, fields)))
+                elif n == len(_OLD_COLS):
+                    row = dict(zip(_OLD_COLS, fields))
+                    row["bucket_multiplier"] = None
+                    parsed.append(row)
+    if not parsed:
+        raise FileNotFoundError(f"No data rows in {directory}")
+
+    df = pd.DataFrame(parsed)
+    for col in PHASES + ["threads", "vector_size"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    # Prefer new-format rows (bucket_multiplier present) if any exist
+    new_rows = df[df["bucket_multiplier"].notna()]
+    if not new_rows.empty:
+        df = new_rows
+
     return (
         df.groupby(["threads", "vector_size"])[PHASES]
         .mean()
